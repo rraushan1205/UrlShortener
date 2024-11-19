@@ -1,27 +1,8 @@
 "use client";
-import { table } from "console";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-interface Url {
-  id: string;
-  shorturl: string;
-  redirecturl: string;
-  createdAt: string;
-  updatedAt: string;
-  visitCount: number;
-  visitHistory: any[]; // Update this for specificity
-}
 export default function Home() {
   const [shortenedUrl, setShortenedUrl] = useState("");
-  const [urls, setUrls] = useState<Url[]>([]);
-  const getUrls = async () => {
-    const allUrl = await fetch("/api/url/getAllUrl");
-    if (allUrl) {
-      const urldata = await allUrl.json();
-      console.log(urldata.data);
-      const url_data: Url[] = urldata.data;
-      setUrls(url_data);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,38 +47,9 @@ export default function Home() {
       <p className="" id="shortedId">
         <a href={shortenedUrl}>{shortenedUrl}</a>
       </p>
-      <button className="bg-gray-700 px-2 py-1 rounded-lg" onClick={getUrls}>
-        Get-Url
+      <button className="bg-gray-700 px-2 py-1 rounded-lg">
+        <Link href="/ShowAllUrl">Get-Url</Link>
       </button>
-      <table className="text-white mt-10">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Short URL</th>
-            <th>Redirect URL</th>
-            <th>Visit Count</th>
-          </tr>
-        </thead>
-        <tbody>
-          {urls &&
-            urls.map((urlItem, index) => (
-              <tr key={index}>
-                <td className="px-8 py-1 border border-gray-600">
-                  {urlItem.id}
-                </td>
-                <td className="px-8 py-1 border border-gray-600">
-                  {urlItem.shorturl}
-                </td>
-                <td className="px-8 py-1 border border-gray-600">
-                  {urlItem.redirecturl}
-                </td>
-                <td className="px-8 py-1 border border-gray-600">
-                  {urlItem.visitCount}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
     </div>
   );
 }
