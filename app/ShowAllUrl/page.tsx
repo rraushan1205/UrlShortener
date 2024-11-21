@@ -1,6 +1,7 @@
 "use client";
 import { table } from "console";
 import { useEffect, useState } from "react";
+import { createClient } from "redis";
 import Loading from "../loading/Loading";
 interface Url {
   id: string;
@@ -11,9 +12,11 @@ interface Url {
   visitCount: number;
   visitHistory: any[]; // Update this for specificity
 }
+
 export default function Home() {
   const [urls, setUrls] = useState<Url[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
   const getUrls = async () => {
     const allUrl = await fetch("/api/url/getAllUrl");
     if (allUrl) {
@@ -27,6 +30,7 @@ export default function Home() {
   useEffect(() => {
     getUrls();
   }, []);
+
   if (loading) {
     return <Loading />;
   }

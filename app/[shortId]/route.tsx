@@ -1,15 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const prisma = new PrismaClient();
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { shortId: string } }
-) {
-  const { shortId } = await params;
+export async function GET(request: NextRequest, res: NextApiResponse) {
+  const shortId = request.nextUrl.pathname.split("/").pop();
+
   const redirectURL = await prisma.url.findFirst({
     where: {
-      shorturl: shortId,
+      shorturl: String(shortId),
     },
   });
 
@@ -24,8 +23,8 @@ export async function GET(
         },
       },
     });
-    console.log(redirectURL.redirecturl);
+    // console.log(redirectURL.redirecturl);
     return NextResponse.redirect(new URL(redirectURL.redirecturl));
   }
-  return NextResponse.json({ message: "Got you" });
+  return NextResponse.json({ message: "No link found" });
 }

@@ -12,10 +12,14 @@
     "@prisma/client": "^5.22.0",
     "crypto": "^1.0.1",
     "cuid": "^3.0.0",
+    "dotenv": "^16.4.5",
     "nanoid": "^5.0.8",
+    "net": "^1.0.2",
     "next": "15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106"
+    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "redis": "^4.7.0",
+    "tls": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -24,6 +28,6 @@
     "postcss": "^8",
     "prisma": "^5.22.0",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5.6.3"
   }
 }
